@@ -2,7 +2,6 @@ import 'reflect-metadata';
 import { createExpressServer, useContainer as routingUseContainer } from 'routing-controllers';
 import { config } from './config';
 import winston from 'winston';
-import { useContainer as ormUseContainer } from 'typeorm';
 import { useContainer as classValidatorUseContainer } from 'class-validator';
 import { Container } from 'typedi';
 import * as path from 'path';
@@ -10,7 +9,6 @@ import { winstonLoader } from './loaders/winstonLoader';
 import { databaseLoader } from './loaders/databaseLoader';
 
 routingUseContainer(Container);
-// ormUseContainer(Container);
 classValidatorUseContainer(Container);
 
 async function bootUpApp() {

@@ -2,6 +2,8 @@ import { DataSource } from 'typeorm';
 import { User } from '../models/User';
 import { config } from '../../config';
 import { Service } from 'typedi';
+import path from 'path';
+import { Post } from '../models/Post';
 
 const {
     type,
@@ -26,9 +28,9 @@ export class MainDataSource extends DataSource {
             database,
             synchronize: true,
             logging: true,
-            entities: [User],
+            entities: [User, Post],
             subscribers: [],
-            migrations: [],
+            migrations: [path.join(__dirname, '/database/migrations/*.ts')],
         });
     }
 }

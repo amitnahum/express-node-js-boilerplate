@@ -1,11 +1,11 @@
 import 'reflect-metadata';
-import { Param, Body, Get, Post, Put, Delete, JsonController, OnUndefined, Req } from 'routing-controllers';
+import { Body, Delete, Get, JsonController, OnUndefined, Param, Post, Put, Req } from 'routing-controllers';
 import { UserService } from '../services/UserService';
 import { User } from '../models/User';
 import { ResponseSchema } from 'routing-controllers-openapi';
 import { IsEmail, IsNotEmpty, IsUUID } from 'class-validator';
 import { UserNotFoundError } from '../errors/';
-import { Inject, Service } from 'typedi';
+import { Service } from 'typedi';
 import { Logger } from '../../lib/logger/Logger';
 
 class BaseUser {
@@ -41,7 +41,6 @@ export class UserController {
         private userService: UserService,
         private readonly log: Logger
     ) {
-        this.log.info('UserController instantiated');
     }
 
     @Get()
@@ -49,12 +48,6 @@ export class UserController {
     public find(): Promise<User[]> {
         this.log.info(`Find user controller`);
         return this.userService.find();
-    }
-
-    @Get('/me')
-    @ResponseSchema(UserResponse, {isArray: true})
-    public findMe(@Req() req: any): Promise<User[]> {
-        return req.user;
     }
 
     @Get('/:id')
